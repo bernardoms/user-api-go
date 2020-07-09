@@ -1,0 +1,113 @@
+basePath: /v1
+definitions:
+  model.User:
+    properties:
+      country:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      nickname:
+        type: string
+      password:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: Swagger API for Golang Project User microservice api.
+  license: {}
+  termsOfService: http://swagger.io/terms/
+  title: User Swagger API
+  version: "1.0"
+paths:
+  /users:
+    get:
+      description: Get all users
+      parameters:
+      - description: User nickname
+        in: query
+        name: nickname
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Retrieves user based on a given filter
+      tags:
+      - users
+    post:
+      description: create an user
+      parameters:
+      - description: Create user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          headers:
+            Location:
+              description: /v1/users/{nickname}
+              type: string
+      summary: create an user
+      tags:
+      - users
+  /users/{nickname}:
+    delete:
+      description: Deletes an user by a given nickname
+      parameters:
+      - description: User nickname
+        in: path
+        name: nickname
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204": {}
+      summary: Deletes an user by a given nickname
+      tags:
+      - users
+    get:
+      description: Retrieves an user by a given nickname
+      parameters:
+      - description: User nickname
+        in: path
+        name: nickname
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Retrieves an user by a given nickname
+      tags:
+      - users
+    put:
+      description: Update an user by a given nickname and notify to a topic
+      parameters:
+      - description: User nickname
+        in: path
+        name: nickname
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204": {}
+      summary: Update an user by a given nickname and notify to a topic
+      tags:
+      - users
+swagger: "2.0"
